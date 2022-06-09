@@ -1,0 +1,87 @@
+﻿@model Thinh_Ecom.Entities.Products
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Products</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="pd_Id" />
+            <div class="form-group">
+                <label asp-for="pd_Name" class="control-label"></label>
+                <input asp-for="pd_Name" class="form-control" />
+                <span asp-validation-for="pd_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pd_Description" class="control-label"></label>
+                <input asp-for="pd_Description" class="form-control" />
+                <span asp-validation-for="pd_Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pd_Price" class="control-label"></label>
+                <input asp-for="pd_Price" class="form-control" />
+                <span asp-validation-for="pd_Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pd_ReducePrice" class="control-label"></label>
+                <input asp-for="pd_ReducePrice" class="form-control" />
+                <span asp-validation-for="pd_ReducePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="pd_Img1" class="control-label"></label>
+                <input asp-for="pd_Img1" class="form-control" />
+                <span asp-validation-for="pd_Img1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span>
+                    Image:
+                </span>
+                <img src="@ViewBag.img" />
+            </div>
+            <div class="form-group">
+                <label asp-for="pd_ShortDescription" class="control-label"></label>
+                <input asp-for="pd_ShortDescription" class="form-control" />
+                <span asp-validation-for="pd_ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriesFK" class="control-label"></label>
+                <select name="CategoriesFK" id="cars" class="form-control">
+                    <!-- First Value-->
+                    @if(ViewBag.CurrentCategories is not null)
+                    {
+                        <option value="ViewBag.CurrentCategories.cg_Id">@ViewBag.CurrentCategories.cg_Name</option>
+                    }
+                    
+                    <!-- Value List-->
+                    @if(ViewBag.CategoriesList is not null)
+                    {
+                        foreach (var item in ViewBag.CategoriesList)
+                        {
+                            <option value="@item.cg_Id">@item.cg_Name</option>
+                        }
+                        
+                    }
+                </select>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

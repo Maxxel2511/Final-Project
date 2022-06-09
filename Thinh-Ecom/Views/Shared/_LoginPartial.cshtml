@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Thinh_Ecom.Entities;
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+
+    <li>
+        <b> <a class="nav-link text-light" href="#" title="Manage">Hello @User.Identity.Name!</a> </b>
+    </li>
+    <li>
+        <a href="/logout" class="nav-link text-light">Logout</a>
+    </li>
+
+
+}
+else
+{
+
+    <li>
+        <a href="/login" class="dropdown-item">Login</a>
+    </li>
+    <li>
+        <a href="/register" class="dropdown-item">Register</a>
+    </li>
+
+
+}

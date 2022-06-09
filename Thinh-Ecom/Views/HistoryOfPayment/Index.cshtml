@@ -1,0 +1,146 @@
+﻿@model IEnumerable<Thinh_Ecom.Models.HistoryPaymentModels>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Get 24/7 Support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="checkout-section mt-150 mb-150">
+    <div class="container">
+        <div class="row ">
+            <div class="container mt-5 px-2">
+                <div>
+                    <h3>
+                        Payment History
+                    </h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-responsive table-borderless">
+                        <thead>
+                            <tr class="bg-light">
+                                <th scope="col" width="5%"></th>
+                                <th scope="col" width="5%">#</th>
+                                <th scope="col" width="10%">Date</th>
+                                <th scope="col" width="10%">Status</th>
+                                <th scope="col" width="20%">Type Payment</th>
+                                <th scope="col" class="text-end" width="20%"><span>Price</span></th>
+                                <
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 0;
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <th scope="row"></th>
+                                        <td>@i</td>
+                                        <td>@item.Date</td>
+                                        <td><i class="fa fa-check-circle-o green"></i><span class="ms-1">@item.Status_Confirm</span></td>
+                                        <td>@item.Type_Payment</td>
+                                        <td class="text-end">
+                                            <span class="fw-bolder">$@item.Price</span>
+
+                                            <a href="#" onclick="getDetails('@item.Name_Product','$@item.Discount','$@item.Shipping','$@item.Price')">Details</a>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+
+
+                        </tbody>
+                    </table>
+                    <button type="button" hidden id="btn-Getinformation" class="btn btn-primary launch" data-toggle="modal" data-target="#staticBackdrop">
+                        <i class="fa fa-info"></i> Get information
+                    </button>
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body ">
+                                    <div class="text-right"> <i class="fa fa-close close" data-dismiss="modal"></i> </div>
+                                    <div class="px-4 py-5">
+                                        <h5 class="text-uppercase">Bill Details</h5>
+                                        <h4 class="mt-5 theme-color mb-5">Thanks for your order</h4>
+
+                                        <span class="theme-color">Payment Summary</span>
+                                        <div class="mb-3">
+                                            <hr class="new1">
+                                        </div>
+                                        <div id="productList">
+
+                                        </div>
+@*                                        <div class="d-flex justify-content-between" >
+                                            <span class="font-weight-bold">Ether Chair(Qty:1)</span>
+                                            <span class="text-muted">$1750.00</span>
+                                        </div>*@
+
+                                        <div class="d-flex justify-content-between">
+                                            <small>Discount</small>
+                                            <small id="Discount-input">$175.00</small>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <small>Shipping</small>
+                                            <small id="Shipping-input">$175.00</small>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between mt-3">
+                                            <span class="font-weight-bold">Total</span>
+                                            <span class="font-weight-bold theme-color" id="Total-input">$2125.00</span>
+                                        </div>
+                                        <div class="text-center mt-5">
+                                            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getDetails(NameProduct,discount,shiping,total)
+    {
+
+        
+        
+        var productListInput = document.getElementById("productList");
+        productListInput.innerHTML = NameProduct;
+
+        var DiscountInput = document.getElementById("Discount-input");
+        DiscountInput.innerHTML = discount;
+
+        var ShippingInput = document.getElementById("Shipping-input");
+        ShippingInput.innerHTML = shiping;
+
+        var TotalInput = document.getElementById("Total-input");
+        TotalInput.innerHTML = total;
+
+        var btnGetInfo = document.getElementById("btn-Getinformation");
+        btnGetInfo.click();
+
+    }
+
+    
+
+
+</script>

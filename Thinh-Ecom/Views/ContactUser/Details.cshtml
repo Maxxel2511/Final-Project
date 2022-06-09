@@ -1,0 +1,48 @@
+﻿@model Thinh_Ecom.Entities.ContactForm
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ContactForm</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cf_Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cf_Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cf_Phone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cf_Phone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cf_Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cf_Email)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cf_Subject)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cf_Subject)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.cf_Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.cf_Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

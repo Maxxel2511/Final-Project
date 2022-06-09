@@ -1,0 +1,244 @@
+﻿@model ICollection<Thinh_Ecom.Models.CartModels>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Pizza</p>
+                    <h1>Cart</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end breadcrumb section -->
+<!-- cart -->
+<div class="cart-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+
+            <div>
+                <table>
+                    <tr>
+                        <th>
+                            S
+                        </th>
+                        <td>
+                            Default
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            M
+                        </th>
+                        <td>
+                            $@ViewBag.queryPriceM
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            L
+                        </th>
+                        <td>
+                            $@ViewBag.queryPriceL
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br />
+
+            <div class="col-lg-8 col-md-12">
+                <div class="cart-table-wrap">
+                    <table class="cart-table">
+                        <thead class="cart-table-head">
+                            <tr class="table-head-row">
+                                <th class="product-remove"></th>
+                                <th hidden> Product Id </th>
+                                <th class="product-image">Product Image</th>
+                                <th class="product-name">Name</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-quantity">Size</th>
+                                <th class="product-total">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form asp-controller="Cart" asp-action="Edit" method="post">
+                                @{
+                                    var i = 0;
+                                    int subtotal = 0;
+                                    int subProductPrice = 0;
+                                    foreach (var item in ViewBag.Cart)
+                                    {
+
+                                        subProductPrice = item.cart_ProductPrice * item.cart_ProductQuantity;
+                                    <tr class="table-body-row">
+                                        <td class="product-remove"><a href="cart/remove?pd_id=@item.cart_ProductId"><i class="far fa-window-close"></i></a></td>
+                                        <td hidden>
+                                            <input type="text" value="@item.cart_ProductId" name="[@i].cart_ProductId">
+                                        </td>
+                                        <td class="product-image"><img src="@item.cart_ProductImg" alt=""></td>
+                                        <td class="product-name">@item.cart_ProductName</td>
+                                        <td class="product-price">$@item.cart_ProductPrice</td>
+
+                                        <td class="product-quantity">
+                                            <input type="number" id="quantityTXT" name="[@i].cart_ProductQuantity" value="@item.cart_ProductQuantity" min="1" max="100">
+                                        </td>
+                                            @if ((@item.cart_ProductType == "Drink") ||
+                                (@item.cart_ProductType == "Spaghetti") ||
+                                (@item.cart_ProductType == "Sidedishes"))
+                                            {
+                                            <td class="product-name">
+                                            </td>
+                                            }
+                                            else
+                                            {
+                                            <td class="product-name">
+                                                <select name="[@i].cart_ProductSize" id="cart_ProductSize" class="form-select">
+                                                        @{
+                                                            switch (item.cart_ProductSize)
+                                                            {
+                                                                case "S":
+                                                                    // code block
+                                                                <option value="S" selected>S</option>
+                                                                <option value="M">M</option>
+                                                                <option value="L">L</option>
+                                                                    break;
+                                                                case "M":
+                                                                    // code block
+                                                                <option value="S">S</option>
+                                                                <option value="M" selected>M</option>
+                                                                <option value="L">L</option>
+                                                                    break;
+                                                                case "L":
+                                                                    // code block
+                                                                <option value="S">S</option>
+                                                                <option value="M">M</option>
+                                                                <option value="L" selected>L</option>
+                                                                    break;
+                                                                default:
+                                                                    // code block
+                                                                <option value="S" selected>S</option>
+                                                                <option value="M">M</option>
+                                                                <option value="L">L</option>
+                                                                    break;
+                                                            }
+                                                        }
+
+                                                </select>
+                                            </td>
+                                            }
+
+                                        <td class="product-total">$@item.cart_totalPrice</td>
+                                    </tr>
+
+                                        subtotal += subProductPrice;
+                                        subProductPrice = 0;
+                                        i++;
+                                    }
+                                }
+                            <input type="submit" value="UpdateCart" id="UpdateCartButton" hidden>
+                            </form>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="total-section">
+                    <table class="total-table">
+                        <thead class="total-table-head">
+                            <tr class="table-total-row">
+                                <th>Total</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="total-data">
+                                <td><strong>Subtotal: </strong></td>
+                                <td><span id="SubtotalPrice"></span></td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Discount: </strong></td>
+                                <td><span id="DiscountPrice"></span></td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Shipping: </strong></td>
+                                <td><span id="ShippingPrice"></span></td>
+                            </tr>
+                            <tr class="total-data">
+                                <td><strong>Total: </strong></td>
+                                <td><span id="TotalPrice"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="cart-buttons">
+                        <a href="#" onclick="UpdateButton()" class="boxed-btn">Update Cart</a>
+
+                        <a href="/checkout" class="boxed-btn black">Check Out</a>
+                    </div>
+                </div>
+
+                <div class="coupon-section">
+                    <h3>Apply Coupon</h3>
+                    <div class="coupon-form-wrap">
+                        <form method="post" asp-controller="Cart" asp-action="AddCoupon">
+                            <p><input type="text" placeholder="Coupon" name="Code"></p>
+                            <p><input type="submit" value="Apply"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end cart -->
+
+
+<script>
+    function UpdateButton()
+    {
+
+        var updateBT = document.getElementById("UpdateCartButton");
+
+        updateBT.click();
+    }
+    var SubtotalPrice = 0;
+    function SetSubTotal(price)
+    {
+        SubtotalPrice = price;
+    }
+
+
+    function CaculatorValueStart()
+    {
+        //SubtotalPrice
+        var SubtotalPrice = document.getElementById("SubtotalPrice");
+        SubtotalPrice.innerHTML = "$" +@ViewBag.SubToTal;
+
+        //DiscountPrice
+        var DiscountPrice = document.getElementById("DiscountPrice");
+        DiscountPrice.innerHTML = "$" + @ViewBag.Discount;
+
+
+        //ShippingPrice
+        var ShippingPrice = document.getElementById("ShippingPrice");
+        ShippingPrice.innerHTML = "$" + @ViewBag.Shipping;
+
+
+        //TotalPrice
+        var TotalPrice = document.getElementById("TotalPrice");
+        TotalPrice.innerHTML = "$" + @ViewBag.Total;
+    }
+
+
+
+
+</script>

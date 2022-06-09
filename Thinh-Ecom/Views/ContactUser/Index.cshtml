@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Thinh_Ecom.Entities.ContactForm>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cf_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cf_Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cf_Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cf_Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cf_Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cf_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cf_Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cf_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cf_Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cf_Description)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.cf_Id">Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

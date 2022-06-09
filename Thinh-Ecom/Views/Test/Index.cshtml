@@ -1,0 +1,19 @@
+﻿@model ICollection<Thinh_Ecom.Models.CartModels>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+var options = new RequestOptions
+{
+  ApiKey = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+};
+var service = new ChargeService();
+Charge charge = service.Get(
+  "ch_3Kyjj12eZvKYlo2C0REgSsiA",
+  options
+);

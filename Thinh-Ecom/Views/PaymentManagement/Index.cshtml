@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Thinh_Ecom.Models.PaymentManagement>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Payment management";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+
+    .card-1 {
+        border: none;
+        border-radius: 10px;
+        width: 100%;
+    }
+
+    .icons i {
+        margin-left: 20px
+    }
+</style>
+<div class="container mt-5">
+    <table class="table table-borderless table-responsive card-1 p-4">
+        <thead>
+            <tr class="border-bottom">
+                <th> <span class="ml-2">Time</span> </th>
+                <th> <span class="ml-2">Customer</span> </th>
+                <th> <span class="ml-2">Price</span> </th>
+                <th> <span class="ml-2">Confirm</span> </th>
+                <th> <span class="ml-4">Action</span> </th>
+                <th>  </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="border-bottom">
+                    <td>
+                        <div class="p-2"> <span class="d-block font-weight-bold">@item.Date</span>  </div>
+                    </td>
+                    <td>
+                        <div class="p-2 d-flex flex-row align-items-center mb-2">
+                            <img src="https://i.imgur.com/ZSkeqnd.jpg" width="40" class="rounded-circle">
+                            <div class="d-flex flex-column ml-2"> <span class="d-block font-weight-bold">@item.UserName</span>  </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2"> <span class="font-weight-bold">$@item.Price</span> </div>
+                    </td>
+                    <td>
+                        <div class="p-2"> @item.Status_Confirm </div>
+                    </td>
+                    <td>
+                        <div class="p-2 icons">
+                            @*<i class="fa fa-phone text-danger"></i>*@
+                            @if(item.Status_Confirm == false)
+                            {
+                              <a href="/paymentconfirm?id=@item.PaymentId"><i class="fa fa-check text-danger"></i></a> 
+                            }
+                            
+                            @*<i class="fa fa-share"></i> *@
+                        </div>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.PaymentId">Details</a>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
